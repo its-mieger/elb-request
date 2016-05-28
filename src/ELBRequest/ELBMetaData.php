@@ -10,7 +10,7 @@
 		const FORWARDED_PROTOCOL_HTTP = 'http';
 		const FORWARDED_PROTOCOL_HTTPS = 'https';
 
-		protected function getElbHeader($headerName) {
+		protected static function getElbHeader($headerName) {
 
 			// prepend prefix
 			$headerName = 'X-Forwarded-' . $headerName;
@@ -20,7 +20,7 @@
 
 			// check existence
 			if (!array_key_exists($key, $_SERVER))
-				throw new ElbHeaderNotExistsException($headerName);
+				throw new ELBHeaderNotExistsException($headerName);
 
 			return $_SERVER[$key];
 		}
@@ -28,7 +28,7 @@
 		/**
 		 * Gets the port the client used to connect to the ELB
 		 * @return int The port (e.g. 80 or 443)
-		 * @throws ElbHeaderNotExistsException
+		 * @throws ELBHeaderNotExistsException
 		 */
 		public static function getForwardedPort() {
 			return self::getElbHeader('Port');
@@ -37,7 +37,7 @@
 		/**
 		 * Gets the protocol the client used to connect to the ELB
 		 * @return string The protocol (e.g. 'https' or 'http')
-		 * @throws ElbHeaderNotExistsException
+		 * @throws ELBHeaderNotExistsException
 		 */
 		public static function getForwardedProtocol() {
 			return self::getElbHeader('Proto');
@@ -46,7 +46,7 @@
 		/**
 		 * Gets the IPs of all proxies and the client within the forwarding chain.
 		 * @return string[] The ips of all proxies and the client. The last address is the address of the most recent proxy which connected to the ELB.
-		 * @throws ElbHeaderNotExistsException
+		 * @throws ELBHeaderNotExistsException
 		 */
 		public static function getForwardedClientIPs() {
 			return explode(',', str_replace(' ', '', self::getElbHeader('For')));
@@ -55,7 +55,7 @@
 		/**
 		 * Checks if the client connected via HTTPS to the ELB
 		 * @return bool True if connected via HTTPS. Else false
-		 * @throws ElbHeaderNotExistsException
+		 * @throws ELBHeaderNotExistsException
 		 */
 		public static function isHttps() {
 			return self::getForwardedProtocol() == self::FORWARDED_PROTOCOL_HTTPS;
@@ -64,7 +64,7 @@
 		/**
 		 * Checks if the client connected via HTTP to the ELB
 		 * @return bool True if connected via HTTP. Else false
-		 * @throws ElbHeaderNotExistsException
+		 * @throws ELBHeaderNotExistsException
 		 */
 		public static function isHttp() {
 			return self::getForwardedProtocol() == self::FORWARDED_PROTOCOL_HTTP;

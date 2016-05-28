@@ -3,7 +3,7 @@
 
 	use Exception;
 
-	class ElbHeaderNotExistsException extends \Exception {
+	class ELBHeaderNotExistsException extends \Exception {
 
 		protected $header;
 
