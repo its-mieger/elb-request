@@ -1,0 +1,18 @@
+{
+	"name": "its-mieger/elb-request",
+	"description": "Gather information about requests passed through AWS ELB instance",
+	"minimum-stability": "dev",
+	"license": "proprietary",
+	"authors": [
+		{
+			"name": "Christopher Mieger",
+			"email": "christopher.mieger@its-mieger.de"
+		}
+	],
+	"require": {},
+	"autoload": {
+		"psr-0": {
+			"ELBRequest": "src/"
+		}
+	}
+}
