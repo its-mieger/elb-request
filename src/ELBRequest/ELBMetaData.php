@@ -75,7 +75,8 @@
 		 * @return string The remote IP. (eg. '203.0.113.7' or '2001:DB8::21f:5bff:febf:ce22:8a2e')
 		 */
 		public static function getRemoteIp() {
-			return array_pop(self::getForwardedClientIPs());
+			$ips = self::getForwardedClientIPs();
+			return array_pop($ips);
 		}
 
 	}
